@@ -69,3 +69,34 @@ ggplot(data, aes(y=`U.S..viewers..millions.`, x = `No..overall`, fill = `Season`
 ```
 
 <br />
+
+## 5. Episode-to-episode changes in viewership
+
+Below, you can find a graph with **changes in viewership** of the show over time (in episode-to-episode format:
+
+<br />
+
+```{r, echo=FALSE}
+
+for (i in 2:nrow(data)) {
+  data$Change[i] <- (data$`U.S..viewers..millions.`[i]-data$`U.S..viewers..millions.`[i-1])/data$`U.S..viewers..millions.`[i-1]
+}
+
+data_to_plot <- data[c(2:nrow(data)), ]
+
+```
+
+```{r, echo=FALSE}
+
+ggplot(data_to_plot, aes(y=`Change`, x = `No..overall`, fill = `Season`)) + 
+  geom_bar(stat="identity") +
+  scale_fill_brewer(palette="Set3") +
+  scale_x_continuous(breaks = c(0, 25, 50, 75, 100, 125)) +
+  xlab('Episode number') +
+  ylab('Change in percentage') +
+  ggtitle('Suits episode-to-episode changes in viewership') +
+  theme_minimal()
+
+```
+
+<br />
