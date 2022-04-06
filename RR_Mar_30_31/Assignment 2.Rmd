@@ -39,3 +39,33 @@ The series was renewed for an eighth season on January 30, 2018. In January 2019
 
 <br />
 *Performed by Nielsen Media Research*
+
+## 4. Viewership over time
+
+Below, you can find a groph with **viewership of the show over time**, for all episodes:
+
+<br />
+
+```{r, echo=FALSE}
+
+library(ggplot2)
+
+data = read.csv('data.csv', sep = ';')
+data$Season <- as.character(data$Season)
+
+```
+
+```{r, echo=FALSE}
+
+ggplot(data, aes(y=`U.S..viewers..millions.`, x = `No..overall`, fill = `Season`)) + 
+  geom_bar(stat="identity") +
+  scale_fill_brewer(palette="Set3") +
+  scale_x_continuous(breaks = c(0, 25, 50, 75, 100, 125)) +
+  xlab('Episode number') +
+  ylab('US viewers (in millions)') +
+  ggtitle('Suits viewership over time') +
+  theme_minimal()
+
+```
+
+<br />
