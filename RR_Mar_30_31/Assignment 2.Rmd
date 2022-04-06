@@ -100,3 +100,7 @@ ggplot(data_to_plot, aes(y=`Change`, x = `No..overall`, fill = `Season`)) +
 ```
 
 <br />
+
+## 6. Description of the observed changes
+
+From the chart in point 4, it's easy to see that *Suits'* viewership is **declining with each season** - in the case of Season One, the series attracted around **4 million** viewers per episode. Already in season five, this number was twice as low - around **2 million** viewers per episode. Last season drew approximately **1 million** viewers per episode. Referring to the graph in Section 5, viewership changes for the episode-to-episode comparison appear to be **similar between seasons**. The biggest change was recorded in the first episode of the last season - about **40% increase** in viewership compared to the last episode of the 8th season.
