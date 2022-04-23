@@ -1,0 +1,99 @@
+---
+title: "Assignment 4"
+author: "Ewelina Plachimowicz"
+date: "4/23/2022"
+output: html_document
+---
+
+## Exercise 1
+
+Consider a [FizzBuzz problem](https://codegolf.stackexchange.com/questions/58615/1-2-fizz-4-buzz). The program should write numbers from 1 to 100, separated by a newline, but multiples of 3 and of 5 should be replaced with "Fizz" and "Buzz" respectively. For numbers which are multiples of both 3 and 5 print "FizzBuzz".
+
+``` {r}
+
+for (n in 1:100) {
+  
+  if (n%%3 == 0 & n%%5 != 0) { # Numbers that are divisible by 3, but not by 5
+    cat('Fizz\n\n')
+  } else if (n%%3 != 0 & n%%5 == 0) { # Numbers that are divisible by 5, but not by 3
+    cat('Buzz\n\n')
+  } else if (n%%3 == 0 & n%%5 == 0) { # Numbers that are divisible by 3 and 5
+    cat('FizzBuzz\n\n')
+  } else { # Other numbers
+    cat(n, '\n\n')
+  }
+  
+}
+
+```
+
+---
+
+## Exercise 2
+
+1. Write a function which takes *n* (float or integer) as a parameter and returns the largest Fibonacci number smaller than *n*. The function should be documented, with type hints, and appropriate comments.
+
+``` {r}
+
+fibonacci_number <- function(n) {
+  # Fibonacci numbers - first number is equal to 0, second number is equal to 1, 
+  # each next number is the sum of the previous two
+  
+  if (class(n) != 'numeric') {
+    print('Choose an integer')
+  } else if (n < 0) { 
+    print('Number can not be below 0') # Fibonacci numbers starts from 0
+  } else if (n == 0) { 
+    print('Can not find Fibonacci number below 0') # Fibonacci numbers starts from 0
+  } else if (n > 0 & n <= 1) {
+    return(0)
+  } else if (n > 1) {
+    fibonacci_vector <- c(0, 1) # First two numbers are always the same
+    
+    # Loop stops calculating Fibonacci numbers when last number in vector is larger or equal to n
+    while (fibonacci_vector[length(fibonacci_vector)] < n) {
+      # Sum of the previous two Fibonacci numbers
+      fibonacci_next_num <- fibonacci_vector[length(fibonacci_vector) - 1] + 
+                            fibonacci_vector[length(fibonacci_vector)]
+      # Adding number to the vector
+      fibonacci_vector <- c(fibonacci_vector, fibonacci_next_num)
+    }
+    
+    return(fibonacci_vector[length(fibonacci_vector) - 1]) # Returning penultimate number in the vector
+  }
+  
+}
+
+# Example
+fibonacci_number(8)
+
+```
+
+2. Write a function which reverses digits in an integer number (for example 7245 -> 5427). The function should be documented, with type hints, and appropriate comments.
+
+``` {r}
+
+reverse_digits <- function(n) {
+  
+  if (class(n) != 'numeric') {
+    print('Choose an integer')
+  } else if (n < 0) {
+    print('Number should be greater than or equal to 0')
+  } else if (n == Inf) {
+    print('Number can not be infinitive')
+  } else {
+    # rev() function - provides a reversed version of its argument
+    # strsplit() function - split the elements of a character vector x into substrings
+    
+    n_reversed <- as.numeric(paste(rev(strsplit(as.character(n), "")[[1]]), 
+                                   collapse = "")) # Calculating reversed number
+    
+    return(n_reversed)
+  }
+  
+}
+
+# Example
+reverse_digits(1234)
+
+```
