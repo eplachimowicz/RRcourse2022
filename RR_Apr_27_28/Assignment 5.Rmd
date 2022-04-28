@@ -1,0 +1,103 @@
+---
+title: "Assignment 5"
+author: "Ewelina Plachimowicz"
+date: "4/28/2022"
+output: html_document
+---
+
+## Exercise 3
+
+Write names of all US states in UPPERCASE and lowercase to a file. Write how to do this without typing all 50 names manually. Separate code from input and from output.
+
+```{r setup, include=FALSE}
+
+# Loading required packages
+library(datasets)
+
+```
+
+```{r}
+
+# Reading states names from 'state' dataset ('datasets' library)
+states_names <- state.name
+
+# Creating new dataframe with names for all states
+states_database <- data.frame(Id = c(1:length(states_names)), 
+                              States_names = states_names, 
+                              Uppercase_names = toupper(states_names), 
+                              Lowercase_names = tolower(states_names))
+
+```
+
+```{r}
+
+# Saving results to Excel file
+write.csv(states_database, 'states_database.csv')
+
+```
+
+---
+
+## Exercise 4
+
+The code below is of poor quality. Improve it (you may rewrite it to R, if you find it more convenient). [Data (StudentsPerfomance.csv) is available on Kaggle.](https://www.kaggle.com/spscientist/students-performance-in-exams)
+
+*note: the code contains comments to make you understand what you should do, even if you are not very familiar with Python. They may not be the best comments possible...*
+
+```
+# Importing required libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the file with data
+studPerformance = pd.read_csv('StudentsPerformance.csv')
+
+# We need to get list of all unique names of groups for column 'race/ethnicity'
+groups_list = list(studPerformance['race/ethnicity'].unique())
+# Also we need to sort that list alphabetically
+groups_list = sorted(groups_list)
+groups_list
+
+# The dataframe contains data about 5 groups - A, B, C, D and E
+
+# Printing mean math score for each group by loop
+for i in groups_list:
+  # Calculating mean math score for given group (i)
+  mean_math_score = studPerformance[studPerformance['race/ethnicity'] == i]['math score'].mean()
+  
+  # Printing results
+  print('Average math score for', i, 'is equal to:', mean_math_score, '\n')
+  
+
+# Print average value for math, reading, and writing tests for students who completed 
+# the test preparation course and their parent obtained a degree
+
+# List of values to filter students with parent who obtained a degree
+degrees_list = ["associate's degree", "bachelor's degree", "master's degree"]
+
+# Filtering students with completed course
+degree_test = studPerformance[studPerformance['test preparation course'] == 'completed']
+# Filtering students with parent who obtained a degree
+degree_test = degree_test[degree_test['parental level of education'].isin(degrees_list)]
+
+# List of columns to calculate the mean score
+score_types = ['math score', 'reading score', 'writing score']
+
+# Printing mean score for each test by loop
+for i in score_types:
+  # Calculating mean score for given test (i)
+  mean_score = degree_test[i].mean()
+  
+  # Printing results
+  print('Average', i, 'is equal to:', mean_score, '\n')
+
+
+# Plot the histogram of math scores divided by reading scores for each student
+plot_data = studPerformance['math score'] / studPerformance['reading score']
+
+plt.hist(plot_data)
+plt.xlabel('Count of students') # Setting x axis title
+plt.ylabel('Math score / Reading score') # Setting y axis title
+plt.title('Histogram of math score divided by reading score for each student') # Setting plot title
+plt.show()
+```
